@@ -70,7 +70,7 @@ class Chore(db.Model):
     )
 
     name = db.Column(
-        db.Text
+        db.Text,
         nullable=False
     )
 
@@ -78,7 +78,7 @@ class Chore(db.Model):
         db.Integer,
         db.ForeignKey('categories.id', ondelete="cascade"),
         nullable=False,
-    )
+    ) 
 
 class Category(db.Model):
     """categories for chores"""
