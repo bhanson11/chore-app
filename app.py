@@ -5,6 +5,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 
 from models import db, connect_db
 
+CURR_USER_KEY = "curr_user"
+
 app = Flask(__name__)
 
 # Get DB_URI from environ variable (useful for production/testing) or,
@@ -23,3 +25,55 @@ connect_db(app)
 ##########################################################################################
 ## Parent User sign up / login / logout 
 
+@app.before_request
+def add_user_to_g():
+    """If we're logged in, add curr user to Flask global."""
+
+    if CURR_USER_KEY in session:
+        g.user = User.query.get(session[CURR_USER_KEY])
+
+    else:
+        g.user = None
+
+
+def do_login(user):
+    """Log in user."""
+
+    session[CURR_USER_KEY] = user.id
+
+
+def do_logout():
+    """Logout user."""
+
+    if CURR_USER_KEY in session:
+        del session[CURR_USER_KEY]
+
+### app.route signup
+
+### app.route login
+
+### app.route logout
+
+### app.route add child 
+
+### app.route edit child
+
+### app.route remove child
+
+### app.route parent invite other parent
+
+### app.route chore data from API 
+
+### app.route create 
+
+### app.route edit
+
+### app.route delete chores
+
+### app.route assign chores
+
+### app.route unassign chores
+
+#### ALL USERS 
+
+### app.route boolean mark chore as complete 
