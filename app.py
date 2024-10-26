@@ -49,7 +49,16 @@ def do_logout():
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
 
-### app.route signup
+@app.route('/signup', methods=["GET", "POST"])
+def signup():
+    """Handle user signup
+    Create new user and add to database. 
+    Redirect to home page
+    if form not valid, present form"""
+
+    form = UserAddForm()
+
+    
 
 ### app.route login
 
