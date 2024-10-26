@@ -1,7 +1,8 @@
 import os
 
-from flask import Flask, session, g, render_template
+from flask import Flask, session, g, render_template, flash, redirect
 from flask_debugtoolbar import DebugToolbarExtension
+from sqlalchemy.exc import IntegrityError
 
 from forms import UserAddForm
 from models import db, connect_db, User, Chore, Category
@@ -58,9 +59,32 @@ def signup():
 
     form = UserAddForm()
 
+    if form.validate_on_submit():
+        try: 
+            user = User.signup(
+                username=form.username.data,
+                password=form.password.data,
+                email=form.email.data,
+                image_url=form.image_url.data or User.image_url.default.arg,
+            )
+            db.session.commit()
+        
+        except IntegrityError:
+            flash("Username already exists, try again", 'danger')
+            return render_template('users/signup.hthml', form=form)
+        
+        do_login(user)
 
+        return redirect("/")
+    
+    else: 
+        return render_template('users/signup.html', form=form)
 
-### app.route login
+# @app.route('/login', methods=["GET", "POST"])
+# def login():
+#     """user login handler"""
+
+#     form = 
 
 ### app.route logout
 
