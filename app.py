@@ -3,7 +3,7 @@ import os
 from flask import Flask, session, g, render_template
 from flask_debugtoolbar import DebugToolbarExtension
 
-# from forms import 
+from forms import UserAddForm
 from models import db, connect_db, User, Chore, Category
 
 CURR_USER_KEY = "curr_user"
@@ -58,7 +58,7 @@ def signup():
 
     form = UserAddForm()
 
-    
+
 
 ### app.route login
 
