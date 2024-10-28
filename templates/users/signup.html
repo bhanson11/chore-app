@@ -1,9 +1,30 @@
-{% extends 'base.html' %}
+<!-- {% extends 'base.html' %}
 
 {% block body_class %}user signup{% endblock %}
 
-{% block content %}
+{% block content %} -->
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Signup</title>
+</head>
+<body>
+    <form method="POST" id="add_user_form">
+        {{ form.hidden_tag() }}
 
+        {% for field in form if field.widget.input_type != 'hidden' %}
+            {% for error in field.errors %}
+                <span class="text-danger">{{ error }}</span>
+            {% endfor %}
+            {{ field(placeholder=field.label.text, class="form-control") }}
+        {% endfor %}
 
-{% endblock %}
+        <button>Create User Profile</button>
+    </form>
+</body>
+</html>
+
+<!-- {% endblock %} -->

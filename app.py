@@ -4,7 +4,7 @@ from flask import Flask, session, g, render_template, flash, redirect
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
-from forms import UserAddForm
+from forms import AddUserForm
 from models import db, connect_db, User, Chore, Category
 
 CURR_USER_KEY = "curr_user"
@@ -57,7 +57,7 @@ def signup():
     Redirect to home page
     if form not valid, present form"""
 
-    form = UserAddForm()
+    form = AddUserForm()
 
     if form.validate_on_submit():
         try: 
